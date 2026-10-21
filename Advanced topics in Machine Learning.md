@@ -762,3 +762,19 @@ $$\mathbf{w}_{t+1} = \mathbf{w}_t + \alpha\big[R_{t+1} + \gamma \max_a \tilde q(
 | On- or off-policy | on                   | on                                | off                               |
 | MC or TD          | MC                   | TD                                | TD (Q-learning)                   |
 | Key idea          | $G_t \nabla \ln \pi$ | TD error $\delta$ as the critique | replay memory + duplicate network |
+
+# SUPER SECRET KNOWLEDGE!
+Here you can find some tips and tricks for certain problems. Things you need to solve questions even though you might not understand the whole concept.
+
+------------
+## How do I know if an algorithm is biased or unbiased?
+
+One question sorts all of them:
+
+### Solution:
+**Does the target contain a guess (V, Q or ${}\hat{v}{}$)?**
+* **No, only real rewards** ${}\to{}$ **UNBIASED**, but with high variance
+* **Yes, a guess** ${}\to{}$ **BIASED** (the guess can be wrong), but **lower variance**
+
+---------------
+
