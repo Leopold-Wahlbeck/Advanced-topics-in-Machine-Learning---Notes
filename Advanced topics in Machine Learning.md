@@ -770,7 +770,6 @@ Here you can find some tips and tricks for certain problems. Things you need to 
 ## How do I know if an algorithm is biased or unbiased?
 
 One question sorts all of them:
-
 ### Solution:
 **Does the target contain a guess (V, Q or ${}\hat{v}{}$)?**
 * **No, only real rewards** ${}\to{}$ **UNBIASED**, but with high variance
@@ -785,3 +784,23 @@ One question sorts all of them:
 * Does the code have policy parameters ${}\theta{}$?
 	* Yes -> the line that updates ${}\theta{}$
 	* No -> Line that chooses action from Q
+
+--------
+
+## How to know the regret bounds
+
+
+**Memory hook:**
+* Algorithms that don't adapt (Explore-first, ${}\varepsilon{}$-greedy) get **${}T^{2/3}{}$**
+* Adaptive algorithms (Successive Elimination, UCB, Thompson Sampling) get **√(KT log T)**, or **log T / Δ** when the gaps are known.
+* Pure greedy or fixed ${}\varepsilon{}$ gets ${}T{}$. 
+
+| Algorithm                                             | Exploration  | Regret bound                                                                                              | Slide                                      |
+| ----------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| Greedy, or ε-greedy with **fixed** ε                  | –            | **linear**, grows like $T$                                                                                | (Q37)                                      |
+| Explore-First                                         | non-adaptive | $O\big(T^{2/3}(K \log T)^{1/3}\big)$                                                                      | Theorem 1.3                                |
+| ε-greedy with $\epsilon_t = t^{-1/3}(K \log t)^{1/3}$ | non-adaptive | $O\big(t^{2/3}(K \log t)^{1/3}\big)$                                                                      | Theorem 1.4                                |
+| Successive Elimination                                | adaptive     | $O\big(\sqrt{K t \log T}\big)$ **and** $O\big(\log T \sum_{a:\,\mu(a)<\mu(a^*)} \frac{1}{\Delta(a)}\big)$ | Theorems 1.8 and 1.9, eqs (1.9) and (1.11) |
+| UCB1                                                  | adaptive     | the same two as Successive Elimination                                                                    | Theorem 1.14                               |
+| Thompson Sampling                                     | adaptive     | $BR(T) \le O\big(\sqrt{K T \log T}\big)$                                                                  | Bandits 3, Theorem 3.10                    |
+| **Any** algorithm (lower bound)                       | –            | at least about $\log T$                                                                                   | slide "Lower Bound" (Lai & Robbins)        |
