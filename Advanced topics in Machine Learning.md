@@ -771,7 +771,7 @@ Here you can find some tips and tricks for certain problems. Things you need to 
 
 One question sorts all of them:
 ### Solution:
-**Does the target contain a guess (V, Q or ${}\hat{v}{}$)?**
+**Does the target contain a guess (V, Q or ${}\hat{v}{}$, q̂)?**
 * **No, only real rewards** ${}\to{}$ **UNBIASED**, but with high variance
 * **Yes, a guess** ${}\to{}$ **BIASED** (the guess can be wrong), but **lower variance**
 
