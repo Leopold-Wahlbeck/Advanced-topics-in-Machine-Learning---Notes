@@ -778,3 +778,10 @@ One question sorts all of them:
 
 ---------------
 
+## Where in the code is the "Evaluation" and Improvement (for GPI)? 
+
+### Solution:
+* **Evaluation** /critic is always located at the line with the update function
+* Does the code have policy parameters ${}\theta{}$?
+	* Yes -> the line that updates ${}\theta{}$
+	* No -> Line that chooses action from Q
