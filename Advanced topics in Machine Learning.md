@@ -725,3 +725,40 @@ $$\boldsymbol\theta_{t+1} = \boldsymbol\theta_t + \alpha\big(G_t - b(S_t)\big) \
 * Semi-gradient Sarsa: ${}w \leftarrow w + \alpha[R + \gamma \hat{q}(S',A',w) - \hat{q}(S,A,w)] \nabla \hat{q}(S,A,w){}$
 * "Semi-gradient": the target also depends on ${}w{}$, but we don't take its gradient (RL9, slides 20-21).
 
+### 7.6. DQN
+
+#### 7.6.1. What it is
+* Q-learning combined with a deep convolutional network. It learned 49 Atari games from raw pixels, with the same network and settings for every game.
+* Acts ${}\varepsilon{}$-greedily, with ${}\varepsilon{}$ decreasing over time. 
+
+
+#### 7.6.2. Three changes to Q-learning
+1. Experience replay
+2. Duplicate (target) network
+3. Clipping the error term to [-1, 1]
+
+#### 7.6.3. Update
+$$\mathbf{w}_{t+1} = \mathbf{w}_t + \alpha\big[R_{t+1} + \gamma \max_a \tilde q(S_{t+1}, a, \mathbf{w}_t) - \hat q(S_t, A_t, \mathbf{w}_t)\big] \nabla \hat q(S_t, A_t, \mathbf{w}_t)$$
+* ${}\hat{q}{}$ = the network being trained. $\tilde q$ = the duplicate network, kept fixed for ${}C{}$ updates. 
+
+**How the pieces of the DQN algorithm connect:**
+![[Pasted image 20261021122448.png]]
+
+#### 7.6.4. Experience replay
+* Every transition ${}(S,A,R,S'){}$ is stored in a replay memory. Training uses **random mini-batches** drawn from it.
+* This is allowed because Q-learning is off-policy, so it doesn't need consecutive steps from one trajectory.
+* **Three advantages:**
+	1. **More data-efficient**: each experience is reused for many updates.
+	2. **Lower variance**: consecutive updates aren't correlated with each other.
+	3. **More stable:** the experiences used for training no longer depend on the current weights.
+
+#### 7.6.5. Duplicate network
+* **Problem:** the target is computed with the same weights that are being updated. That's like chasing a moving target, and it can cause **oscillation** or **divergence**. 
+* **Fix:** every ${}C{}$ steps, copy ${}\hat{q}{}$'s weights into ${}\hat{q}{}$, then keep ${}\tilde{q}{}$ fixed. Targets are computed with these **older parameters**.
+
+|  | REINFORCE | Actor–Critic | DQN |
+| --- | --- | --- | --- |
+| Learns | policy | policy and $\hat v$ | $\hat q$ |
+| On- or off-policy | on | on | off |
+| MC or TD | MC | TD | TD (Q-learning) |
+| Key idea | $G_t \nabla \ln \pi$ | TD error $\delta$ as the critique | replay memory + duplicate network |
