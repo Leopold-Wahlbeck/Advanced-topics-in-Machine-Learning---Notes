@@ -756,9 +756,9 @@ $$\mathbf{w}_{t+1} = \mathbf{w}_t + \alpha\big[R_{t+1} + \gamma \max_a \tilde q(
 * **Problem:** the target is computed with the same weights that are being updated. That's like chasing a moving target, and it can cause **oscillation** or **divergence**. 
 * **Fix:** every ${}C{}$ steps, copy ${}\hat{q}{}$'s weights into ${}\hat{q}{}$, then keep ${}\tilde{q}{}$ fixed. Targets are computed with these **older parameters**.
 
-|  | REINFORCE | Actor–Critic | DQN |
-| --- | --- | --- | --- |
-| Learns | policy | policy and $\hat v$ | $\hat q$ |
-| On- or off-policy | on | on | off |
-| MC or TD | MC | TD | TD (Q-learning) |
-| Key idea | $G_t \nabla \ln \pi$ | TD error $\delta$ as the critique | replay memory + duplicate network |
+|                   | REINFORCE            | Actor–Critic                      | DQN                               |
+| ----------------- | -------------------- | --------------------------------- | --------------------------------- |
+| Learns            | policy               | policy and $\hat v$               | $\hat q$                          |
+| On- or off-policy | on                   | on                                | off                               |
+| MC or TD          | MC                   | TD                                | TD (Q-learning)                   |
+| Key idea          | $G_t \nabla \ln \pi$ | TD error $\delta$ as the critique | replay memory + duplicate network |
