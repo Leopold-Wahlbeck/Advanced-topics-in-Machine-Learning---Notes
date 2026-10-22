@@ -804,3 +804,6 @@ One question sorts all of them:
 | UCB1                                                  | adaptive     | the same two as Successive Elimination                                                                    | Theorem 1.14                               |
 | Thompson Sampling                                     | adaptive     | $BR(T) \le O\big(\sqrt{K T \log T}\big)$                                                                  | Bandits 3, Theorem 3.10                    |
 | **Any** algorithm (lower bound)                       | –            | at least about $\log T$                                                                                   | slide "Lower Bound" (Lai & Robbins)        |
+
+## Batch TD vs Batch MC, how to know V(s):
+
